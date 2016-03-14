@@ -75,3 +75,79 @@ IplImage *doCanny(IplImage *in, double lowThresh, double highThresh, double aper
 }
 
 //Example2_10
+
+//camera video capture
+
+/*#include <highgui\highgui.hpp>
+#include <cv.h>
+#include <iostream>
+int main(int argc, char* argv[]) {
+	CvCapture *capture = NULL;
+	
+	cvNamedWindow("Camera", HG_AUTOSIZE);
+	capture = cvCreateCameraCapture(0);
+	//capture = cvCaptureFromCAM(0);
+	if (capture = NULL) {
+		std::cout << "Open Camera Failed! " << std::endl;
+		return -1;
+	}
+	std::cout << "Open Camera Successful! " << std::endl;
+	cvWaitKey(8000);
+	IplImage *image = NULL;
+	while (1)
+	{
+		image = cvQueryFrame(capture);
+		if (!image) {
+			std::cout << "Capture Frame Failed! " << std::endl;
+		}
+		cvShowImage("Camera", image);
+		char c = cvWaitKey(33);
+		if (c == 27)break;
+	}
+	cvDestroyWindow("Camera");
+	cvReleaseCapture(&capture);
+	return 0;
+}*/
+#include <opencv2\core\core.hpp>
+#include <opencv2\highgui\highgui.hpp>
+#include <iostream>
+using namespace cv;
+using namespace std;
+int main()
+{
+	char c;
+	VideoCapture inputVideo(0);    //0ÎªÍâ²¿ÉãÏñÍ·µÄID£¬1Îª±Ê¼Ç±¾ÄÚÖÃÉãÏñÍ·µÄID
+	Mat src;
+	//IplImage image;
+	//namedWindow("HELLO", WINDOW_AUTOSIZE);
+	for (;;)
+	{
+		inputVideo >> src;
+		imshow("input", src);
+		c = waitKey(10);
+		if (c == 27) break;
+	}
+	return 0;
+}
+/*
+#include <opencv\cv.h>
+#include <opencv\highgui.h>
+#include <iostream>
+using namespace std;
+using namespace cv;
+
+int main()
+{
+	char c;
+	CvCapture* capture = cvCreateCameraCapture(0);   //0ÎªÍâ²¿ÉãÏñÍ·µÄID£¬1Îª±Ê¼Ç±¾ÄÚÖÃÉãÏñÍ·µÄID
+	IplImage* src;
+	cvWaitKey(300);
+	for (;;)
+	{
+		src = cvQueryFrame(capture);
+		cvShowImage("Input", src);
+		c = cvWaitKey(10);
+		if (c == 27) break;
+	}
+	return 0;
+}*/
